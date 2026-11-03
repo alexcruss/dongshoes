@@ -19,7 +19,7 @@ const SITE = {
   ville: 'Lomé',
   quartier: 'Avédji',
   adresse: 'Avédji, non loin de la Casa del Papel, Lomé',
-  horaires: 'à confirmer',
+  horaires: 'Du lundi au samedi, de 9 h à 21 h',
   livraison: 'Partout dans le monde',
   paiement: 'à confirmer',
   facebook: 'https://www.facebook.com/profile.php?id=61586924373002',

@@ -28,13 +28,13 @@ Présentation, téléphone +228 72 42 42 17, e-mail Dongshoestg@gmail.com, adres
 
 ## À demander au client
 
-- [ ] Confirmer que le +228 72 42 42 17 est bien sur WhatsApp
+- [x] Confirmer que le +228 72 42 42 17 est bien sur WhatsApp (confirmé le 03/11/2026)
 - [ ] Associer chaque photo à son nom : Pesse, Xose, Kondo, Hustler
 - [ ] Prix de chaque modèle et pointures disponibles
-- [ ] Horaires d'ouverture
+- [x] Horaires d'ouverture (lundi au samedi, 9 h à 21 h, confirmé le 03/11/2026)
 - [ ] Moyens de paiement (espèces, Flooz, T-Money…)
 - [ ] Frais et délais de livraison (Lomé, Togo, étranger)
-- [ ] Logo en haute définition (le « ĐONG » doré)
+- [x] Logo (reçu le 03/11/2026, noir sur blanc, 640 px) : une version en haute définition ou en SVG serait un plus
 - [ ] Autorisation d'afficher les personnes qui apparaissent dans les vidéos
 - [ ] Autres modèles à ajouter (photos)
 
