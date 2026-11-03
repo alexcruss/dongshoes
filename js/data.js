@@ -35,6 +35,7 @@ const SITE = {
 /* Grandes images d'accueil (diaporama) */
 const SLIDES = [
   { surtitre: 'Ambition, excellence, audace', titre: 'Dongshoes', texte: 'Chaussures en cuir pour homme à Lomé', photo: 'img/produits/mocassin-penny-bicolore.jpg' },
+  { surtitre: 'Bleu marine, blanc et orange', titre: 'Penny tricolore', texte: 'Le nouveau mocassin en cuir grainé', photo: 'img/produits/mocassin-penny-tricolore-2.jpg' },
   { surtitre: 'Pour le bureau et les cérémonies', titre: 'Mocassins', texte: 'Cuir bicolore, semelle soignée', photo: 'img/produits/mocassin-bicolore-blanc.jpg' },
   { surtitre: 'Le daim, version élégante', titre: 'Derbies', texte: 'Livraison partout dans le monde', photo: 'img/produits/derby-daim.jpg' }
 ];
@@ -54,6 +55,7 @@ const COLLECTION = ['Pesse', 'Xose', 'Kondo', 'Hustler'];
    - prix : texte en FCFA, ex '35 000 F'
    - photo / photo2 : chemins vers img/produits/ */
 const PRODUITS = [
+  { id: 'p5', nom: 'Mocassin penny tricolore', detail: 'Cuir grainé bleu marine, blanc et orange', categorie: 'mocassins', prix: 'à confirmer', badge: 'Nouveau', photo: 'img/produits/mocassin-penny-tricolore.jpg', photo2: 'img/produits/mocassin-penny-tricolore-3.jpg' },
   { id: 'p1', nom: 'Mocassin penny bicolore', detail: 'Cuir marron, blanc et camel', categorie: 'mocassins', prix: 'à confirmer', badge: 'Nouveau', photo: 'img/produits/mocassin-penny-bicolore.jpg', photo2: 'img/produits/mocassin-penny-bicolore-2.jpg' },
   { id: 'p2', nom: 'Mocassin bicolore', detail: 'Cuir marron et blanc, trépointe camel', categorie: 'mocassins', prix: 'à confirmer', badge: '', photo: 'img/produits/mocassin-bicolore-blanc.jpg' },
   { id: 'p3', nom: 'Derby bicolore', detail: 'Cuir cognac, blanc et chocolat', categorie: 'derbies', prix: 'à confirmer', badge: '', photo: 'img/produits/derby-bicolore.jpg' },
