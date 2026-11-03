@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alexcruss.github.io/dongshoes/sitemap.xml
