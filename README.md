@@ -58,3 +58,5 @@ Présentation, téléphone +228 72 42 42 17, e-mail Dongshoestg@gmail.com, adres
 2. Envoyer `sitemap.xml`.
 3. Inspection d'URL → **Demander l'indexation**.
 4. Google Business Profile : à créer par le client (catégorie « Magasin de chaussures », Lomé), avec le lien du site.
+
+Après une modification de `css/style.css` ou des fichiers `js/`, augmenter le numéro `?v=` dans `index.html` (sinon les téléphones gardent l'ancienne version en cache).
