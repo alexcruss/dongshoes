@@ -28,7 +28,7 @@ const SITE = {
   instagram: 'https://www.instagram.com/dong.shoes.tg',
   instagramNom: '@dong.shoes.tg',
   url: 'https://alexcruss.github.io/dongshoes/',
-  portfolio: 'https://alexcruss.github.io/portfolio/',
+  portfolio: 'https://pierredegboevi.com/',
   realisation: 'Pierre Kossi DEGBOEVI'
 };
 
