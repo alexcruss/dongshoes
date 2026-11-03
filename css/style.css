@@ -326,3 +326,15 @@ a.t-photo:hover > img, a.t-new:hover .tile-photo img, a.t-ready:hover .tile-phot
   .t-brand { grid-column: 1 / -1; }
   .t-pick { padding-block: 24px; }
 }
+
+/* Le bouton WhatsApp flottant ne doit pas cacher la fin du pied de page */
+.footer { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+
+/* Zones à toucher d'environ 44 px sur téléphone et écran tactile */
+@media (pointer: coarse), (max-width: 760px) {
+  .topbar-social a { display: inline-block; padding-block: 12px; margin-block: -6px; }
+  .card .btn, .tab { min-height: 44px; }
+  .video figcaption a { display: inline-block; padding-block: 14px; margin-block: -8px; }
+  .dot { position: relative; }
+  .dot::after { content: ''; position: absolute; inset: -16px -4px; }
+}
