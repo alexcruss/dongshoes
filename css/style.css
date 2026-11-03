@@ -164,7 +164,7 @@ a.tile:hover .tile-shoe .shoe { transform: scale(1.05) rotate(-3deg); }
 /* À propos */
 .about { background: var(--surface); border-block: 1px solid var(--line); }
 .about-in { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 36px; align-items: center; padding-block: 48px; }
-.about-art { min-width: 0; }
+.about-art { min-width: 0; background: var(--bg); border: 1px solid var(--line); padding: 14% 10%; }
 .about-art .shoe { width: 100%; }
 .about-text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .about-text p { color: var(--muted); max-width: 60ch; }
@@ -185,7 +185,8 @@ a.tile:hover .tile-shoe .shoe { transform: scale(1.05) rotate(-3deg); }
 .faq-item summary { cursor: pointer; padding: 14px 18px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after { content: '+'; color: var(--gold); font-size: 1.2rem; line-height: 1; }
-.faq-item[open] summary::after { content: '–'; }
+.faq-item summary::after { transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.faq-item[open] summary::after { transform: rotate(45deg); }
 .faq-item p { padding: 0 18px 16px; color: var(--muted); }
 
 /* Contact */
@@ -284,7 +285,7 @@ a.t-photo:hover > img, a.t-new:hover .tile-photo img, a.t-ready:hover .tile-phot
 .card-img .badge { z-index: 1; }
 
 .lead { font-family: var(--f-display); font-size: 1.25rem; color: var(--fg) !important; line-height: 1.35; }
-.about-art img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.about-art img { display: block; width: 100%; height: auto; filter: var(--logo-filter); }
 .banner { background: #0d0d0d; }
 .banner img { width: 100%; max-width: 1180px; margin: 0 auto; max-height: 220px; object-fit: cover; }
 
@@ -337,3 +338,69 @@ a.t-photo:hover > img, a.t-new:hover .tile-photo img, a.t-ready:hover .tile-phot
   .dot { position: relative; }
   .dot::after { content: ''; position: absolute; inset: -16px -4px; }
 }
+
+/* ===== Animations (effet haut de gamme) =====
+   Seulement transform / opacity. Coupées par prefers-reduced-motion (règle en haut du fichier). */
+:root { --ease: cubic-bezier(.2, .7, .2, 1); }
+@keyframes monter { from { opacity: 0; transform: translateY(22px); } }
+@keyframes descendre { from { opacity: 0; transform: translateY(-12px); } }
+@keyframes apparition { from { opacity: 0; } }
+@keyframes deplier { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes voile { from { clip-path: inset(100% -60px -60px -60px); transform: scale(1.06); } to { clip-path: inset(-60px); } }
+@keyframes surgir { from { opacity: 0; transform: scale(.4); } }
+@keyframes onde { 0% { transform: scale(1); opacity: .35; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+
+/* Apparition au défilement (la classe « anim » vient de index.html, « reveal » de main.js) */
+.anim .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease) var(--d, 0ms), transform .9s var(--ease) var(--d, 0ms); }
+.anim .reveal.is-in { opacity: 1; transform: none; }
+.progression { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), #e3c08a); transform: scaleX(0); transform-origin: left; z-index: 40; pointer-events: none; }
+
+/* Arrivée de la page : bandeau, logo, grand visuel, textes l'un après l'autre */
+.navbar { animation: descendre .9s var(--ease) .1s backwards; }
+.logo { animation: apparition 1s ease .4s backwards; }
+.slide.is-on .slide-art.has-photo img { animation: voile 1.2s cubic-bezier(.65, 0, .15, 1) backwards; }
+.slide.is-on .slide-text > * { animation: monter 1s var(--ease) backwards; }
+.slide.is-on .slide-text > :nth-child(1) { animation-delay: .25s; }
+.slide.is-on .slide-text > :nth-child(2) { animation-delay: .38s; }
+.slide.is-on .slide-text > :nth-child(3) { animation-delay: .51s; }
+.slide.is-on .slide-text > :nth-child(4) { animation-delay: .64s; }
+.dot { transition: background .3s, transform .3s var(--ease); }
+.dot.is-on { transform: scale(1.35); }
+
+/* Boutons : reflet qui traverse au survol */
+.btn { position: relative; overflow: hidden; isolation: isolate; transition: background .3s, color .3s, transform .3s var(--ease), box-shadow .3s; }
+.btn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .32) 50%, transparent 70%); transform: translateX(-120%); transition: transform .8s var(--ease); }
+.btn:hover::before { transform: translateX(120%); }
+.btn-ink:hover, .btn-gold:hover { box-shadow: 0 10px 22px -12px rgba(61, 18, 19, .6); }
+.tab { transition: background .25s, color .25s; }
+
+/* Menu : trait doré qui se dessine sous le lien survolé */
+@media (min-width: 761px) {
+  .nav a { position: relative; }
+  .nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 1px; background: #d9bc8c; transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease); }
+  .nav a:hover::after { transform: scaleX(1); }
+}
+.nav.is-open { animation: deplier .35s var(--ease); }
+
+/* Titres : filet doré qui s'allonge */
+.sec-head .sec-title::after { content: ''; display: block; width: 56px; height: 1px; background: var(--gold); margin: 12px auto 0; transition: width 1s var(--ease) .35s; }
+.anim .sec-head.reveal:not(.is-in) .sec-title::after { width: 0; }
+
+/* Cartes, atouts, réseaux, vidéos, questions */
+.card { transition: box-shadow .45s var(--ease), transform .45s var(--ease), border-color .45s; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 26px 40px -24px rgba(61, 18, 19, .5); border-color: var(--gold); }
+.card-img img { transition: opacity .5s ease, transform 1.1s var(--ease); }
+.card:hover .card-img img { transform: scale(1.07); }
+.feature svg { transition: transform .5s var(--ease); }
+.feature:hover svg { transform: translateY(-3px) scale(1.1); }
+.social-card { transition: border-color .3s, transform .35s var(--ease); }
+.social-card:hover { transform: translateX(4px); }
+.play { transition: transform .4s var(--ease), background .3s; }
+.video-play:hover .play { transform: scale(1.12); background: rgba(156, 122, 77, .92); }
+.faq-item { transition: border-color .3s; }
+.faq-item:hover, .faq-item[open] { border-color: var(--gold); }
+.faq-item[open] p { animation: deplier .45s var(--ease); }
+
+/* Bouton WhatsApp flottant : arrivée en douceur, onde discrète */
+.wa-float { animation: surgir .7s cubic-bezier(.2, .9, .3, 1.4) 1.2s backwards; }
+.wa-float::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: #1f9d55; animation: onde 3.4s ease-out 2.6s infinite; }

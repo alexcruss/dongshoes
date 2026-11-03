@@ -10,6 +10,51 @@
     });
   }
 
+  /* ---------- Apparition au défilement ----------
+     La classe « anim » est posée par index.html, sauf si le visiteur a demandé moins d'animations. */
+  var animer = document.documentElement.classList.contains('anim') && 'IntersectionObserver' in window;
+  var vigie = animer ? new IntersectionObserver(function (entrees) {
+    entrees.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      vigie.unobserve(el);
+      el.classList.add('is-in');
+      /* l'effet joué, l'élément retrouve ses transitions normales (survol) */
+      setTimeout(function () { el.classList.remove('reveal', 'is-in'); el.style.removeProperty('--d'); }, 1400 + (parseInt(el.style.getPropertyValue('--d'), 10) || 0));
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }) : null;
+
+  /* Les éléments d'un même groupe apparaissent l'un après l'autre (pas en ms, par séries de « serie ») */
+  function reveler(els, pas, serie) {
+    if (!vigie) return;
+    els.forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.setProperty('--d', (i % (serie || 6)) * (pas || 90) + 'ms');
+      vigie.observe(el);
+    });
+  }
+
+  function animations() {
+    reveler($$('.sec-head'), 0);
+    reveler($$('.features-in .feature'), 110);
+    reveler($$('.mosaic .tile'), 110, 3);
+    reveler($$('.about-art, .about-text, .social'), 140);
+    reveler($$('.banner'), 0);
+    reveler($$('.contact-in > *'), 120);
+    if (!animer) return;
+    var barre = document.createElement('div');
+    barre.className = 'progression'; barre.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(barre);
+    var attente = false;
+    function maj() {
+      attente = false;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      barre.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+    }
+    window.addEventListener('scroll', function () { if (!attente) { attente = true; requestAnimationFrame(maj); } }, { passive: true });
+    maj();
+  }
+
   /* ---------- WhatsApp ---------- */
   function lienWhatsApp(message) {
     var base = SITE.whatsapp ? 'https://wa.me/' + SITE.whatsapp : 'https://wa.me/';
@@ -161,6 +206,7 @@
             '<a class="btn btn-line" href="' + lienWhatsApp(messageProduit(p)) + '" target="_blank" rel="noopener">Commander</a>' +
           '</div></article>';
       }).join('') : '<p class="empty">Aucun modèle dans cette catégorie pour le moment. Demandez les nouveautés sur WhatsApp.</p>';
+      reveler($$('.card', grille), 90, getComputedStyle(grille).gridTemplateColumns.split(' ').length || 4);
     }
     onglets.addEventListener('click', function (e) {
       var b = e.target.closest('.tab'); if (!b) return;
@@ -199,6 +245,7 @@
       f.className = 'video-frame';
       b.replaceWith(f);
     });
+    reveler($$('.video', box), 100, getComputedStyle(box).gridTemplateColumns.split(' ').length || 4);
   }
 
   /* ---------- FAQ ---------- */
@@ -207,6 +254,7 @@
     box.innerHTML = FAQ.map(function (f) {
       return '<details class="faq-item"><summary>' + esc(f.q) + '</summary><p>' + esc(f.r) + '</p></details>';
     }).join('');
+    reveler($$('.faq-item', box), 70);
   }
 
   /* ---------- Menu téléphone ---------- */
@@ -220,5 +268,5 @@
     $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { nav.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); }); });
   }
 
-  remplirInfos(); diaporama(); mosaique(); produits(); videos(); faq(); menu();
+  remplirInfos(); diaporama(); mosaique(); produits(); videos(); faq(); menu(); animations();
 })();

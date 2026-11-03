@@ -42,6 +42,7 @@ Présentation, téléphone +228 72 42 42 17, e-mail Dongshoestg@gmail.com, adres
 
 - HTML, CSS et JavaScript sans dépendance ni compilation. Polices Google : Marcellus, Allura, Nunito Sans.
 - Thème clair et sombre automatique.
+- Animations : arrivée de la page, apparition au défilement (`IntersectionObserver`, fonction `reveler()` dans `js/main.js`), survols, barre de progression dorée. Seulement `transform` et `opacity`. Rien ne bouge si le visiteur a demandé « réduire les animations ». Les règles sont en bas de `css/style.css`.
 - Pas de `alert()` / `confirm()`.
 - Référencement : title, description, canonical, Open Graph, données structurées `ShoeStore` + `WebSite` + `FAQPage`, `sitemap.xml`, `robots.txt`.
 - Test local : `py -m http.server 8090 --directory DONGSHOES` puis http://localhost:8090
